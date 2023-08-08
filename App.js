@@ -2,10 +2,16 @@ import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useState } from "react"
 import {  View, StyleSheet, Text, ScrollView, Dimensions, ActivityIndicator  } from 'react-native';
 import * as Location from 'expo-location'
+import {Fontisto} from '@expo/vector-icons';
 
 const {width:SCREEN_WIDTH} = Dimensions.get("window")
 
-const API_KEY = "4cebbce1062e088d4d98f0b0442f8e24"; //not secure rather put this on my server
+
+
+const icons = {
+  "Clouds" : "cloudy",
+  "Clear"  : "day-sunny"
+}
 
 export default function App() {
   const [city, setCity] = useState("Loading...")
@@ -40,11 +46,13 @@ export default function App() {
         {days.length ===0 ?(<View style={styles.day}><ActivityIndicator color="white" size="large"/></View>) : (
           days.map((day,index) => 
           <View key={index} style={styles.day}>
-            <Text style={styles.temp}>{parseFloat(day.main.temp).toFixed(1)}</Text>
-            <Text style={styles.desc}>
+            <View style={{flexDirection:"row",alignItems:"center", justifyContent:"space-between"}}>
+              <Text style={styles.temp}>{parseFloat(day.main.temp).toFixed(1)}</Text><Fontisto name={icons[day.weather[0].main]} size={68} color="white"/>
+            </View>
+            <Text style={styles.weather}>
               {day.weather[0].main}
             </Text>
-            <Text style>
+            <Text style={styles.desc}>
               {day.weather[0].description}
             </Text>
           </View>)
@@ -59,12 +67,16 @@ const styles = StyleSheet.create({
     flex:1, backgroundColor:'tomato'
   },
   city:{
-    flex:1.2, justifyContent: "center",alignItems:"center"
+    flex:1.2, justifyContent: "center",alignItems:"center",
   },
   cityName:{
-    color:"black", fontSize: 68, fontWeight: "500"
+    color:"black", fontSize: 68, fontWeight: "500",    color: "white"
+
   },
   weather:{
+    marginTop: -30,
+    fontSize: 50,
+    color: "white"
   },
   day:{
     width: SCREEN_WIDTH,
@@ -72,11 +84,14 @@ const styles = StyleSheet.create({
   },
   temp:{
     fontSize: 100,
-    marginTop: 50
+    marginTop: 50,
+    color: "white"
   },
   desc:{
-    marginTop: -30,
-    fontSize: 60
+    marginTop: -5,
+    fontSize: 20,
+    color: "white"
+
   }
 })
 
