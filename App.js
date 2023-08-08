@@ -41,10 +41,10 @@ export default function App() {
           days.map((day,index) => 
           <View key={index} style={styles.day}>
             <Text style={styles.temp}>{parseFloat(day.main.temp).toFixed(1)}</Text>
-            <Text style={styles.desc}>
+            <Text style={styles.weather}>
               {day.weather[0].main}
             </Text>
-            <Text style>
+            <Text style={styles.desc}>
               {day.weather[0].description}
             </Text>
           </View>)
@@ -65,6 +65,8 @@ const styles = StyleSheet.create({
     color:"black", fontSize: 68, fontWeight: "500"
   },
   weather:{
+    marginTop: -30,
+    fontSize: 60
   },
   day:{
     width: SCREEN_WIDTH,
@@ -75,8 +77,8 @@ const styles = StyleSheet.create({
     marginTop: 50
   },
   desc:{
-    marginTop: -30,
-    fontSize: 60
+    marginTop: -5,
+    fontSize: 20
   }
 })
 
